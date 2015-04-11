@@ -4,11 +4,12 @@
 #include "BubbleSort.h"
 #include "InsertionSort.h"
 #include "ShellSort.h"
+#include "MergeSort.h"
 using namespace std;
 
 int main()
 {
-	int arr[] = {3, -5, 5, 2, 1, 5, 10, 7, 9, 4, 0, -2, 6, -10, 7, 8};
+	int arr[] = {3, -5, 5, 2, 0, -10, 1, 5, 9, 100, 4, 0, -2, 6, -10, 7, 8};
 	//int arr[] = { 3, -5, 5, 2 };
 	int len = sizeof(arr) / sizeof(int);
 
@@ -43,6 +44,14 @@ int main()
 	testShellS.sort();
 	assert(testShellS.isSorted());
 	testShellS.show();
+
+	// Test Merge Sorting
+	cout << endl << "Test Merge Sorting" << endl;
+	MergeSort testMS(arr, len);
+	testMS.show();
+	testMS.sort();
+	assert(testMS.isSorted());
+	testMS.show();
 
 	return 0;
 }

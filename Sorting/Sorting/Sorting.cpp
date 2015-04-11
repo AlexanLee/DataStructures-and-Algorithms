@@ -1,5 +1,6 @@
 #include "Sorting.h"
 #include <iostream>
+#include <cassert>
 using namespace std;
 
 Sorting::Sorting()
@@ -10,7 +11,8 @@ Sorting::Sorting()
 Sorting::Sorting(int * initArr, int initLen)
 {
 	len = initLen;
-	arr = new int[len];
+	arr = new(nothrow) int[len];
+	assert(arr != nullptr);
 	for (int i = 0; i < len; i++)
 	{
 		*(arr + i) = *(initArr + i);
@@ -19,7 +21,7 @@ Sorting::Sorting(int * initArr, int initLen)
 
 Sorting::~Sorting()
 {
-	delete arr;
+	delete[] arr;
 	arr = NULL;
 }
 
