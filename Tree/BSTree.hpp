@@ -15,36 +15,36 @@ public:
 	virtual ~BSTree();
 	BSTree(const BSTree& orig);
 	BSTree& operator=(const BSTree& orig);
-	virtual bool isEmpty();									// ÅĞ¶ÏÊ÷ÊÇ·ñÎª¿Õ
-	virtual void creatTree(T * k, T * arr, unsigned len);	// ³õÊ¼»¯Ê÷
-	virtual bool addNode(T k, T val);						// Ìí¼Ó½Úµã
-	virtual bool delNode(T k);								// É¾³ı½Úµã
+	virtual bool isEmpty();					// åˆ¤æ–­æ ‘æ˜¯å¦ä¸ºç©º
+	virtual void creatTree(T * k, T * arr, unsigned len);	// åˆå§‹åŒ–æ ‘
+	virtual bool addNode(T k, T val);			// æ·»åŠ èŠ‚ç‚¹
+	virtual bool delNode(T k);				// åˆ é™¤èŠ‚ç‚¹
 
-	virtual unsigned int getHeight();						// »ñµÃÊ÷µÄ¸ß¶È
+	virtual unsigned int getHeight();			// è·å¾—æ ‘çš„é«˜åº¦
 
-	virtual T getMinimum();                                 // »ñÈ¡Ê÷ÖĞµÄ×îĞ¡Öµ
-	virtual T getMaxmum();									// »ñÈ¡Ê÷ÖĞµÄ×î´óÖµ
+	virtual T getMinimum();                                 // è·å–æ ‘ä¸­çš„æœ€å°å€¼
+	virtual T getMaxmum();					// è·å–æ ‘ä¸­çš„æœ€å¤§å€¼
 
-	virtual Node<T> * searchNode(T k);                      // ËÑË÷keyÎªkµÄ½Úµã
-	virtual Node<T> * getPredecessor(T k);                  // »ñÈ¡Ä³½Úµã(keyÎªk)µÄÇ°Çı½Úµã
-	virtual Node<T> * getSuccessor(T k);                    // »ñÈ¡Ä³½Úµã(keyÎªk)µÄºó¼Ì½Úµã
+	virtual Node<T> * searchNode(T k);                      // æœç´¢keyä¸ºkçš„èŠ‚ç‚¹
+	virtual Node<T> * getPredecessor(T k);                  // è·å–æŸèŠ‚ç‚¹(keyä¸ºk)çš„å‰é©±èŠ‚ç‚¹
+	virtual Node<T> * getSuccessor(T k);                    // è·å–æŸèŠ‚ç‚¹(keyä¸ºk)çš„åç»§èŠ‚ç‚¹
 
-	virtual void preOrder();								// ÏÈĞò±éÀú
-	virtual void inOrder();									// ÖĞĞò±éÀú
-	virtual void postOrder();								// ºóĞò±éÀú
+	virtual void preOrder();				// å…ˆåºéå†
+	virtual void inOrder();					// ä¸­åºéå†
+	virtual void postOrder();				// ååºéå†
 
-	virtual void destroy();									// ÊÍ·ÅÕû¿ÃÊ÷
+	virtual void destroy();					// é‡Šæ”¾æ•´æ£µæ ‘
 
 protected:
-	void preOrder(NodePointer tree);						// ÏÈĞò±éÀú
-	void inOrder(NodePointer tree);							// ÖĞĞò±éÀú
-	void postOrder(NodePointer tree);						// ºóĞò±éÀú
-	unsigned int getHeight(NodePointer tree);				// »ñµÃÊ÷µÄ¸ß¶È
-	void destroy(NodePointer tree);							// ÊÍ·ÅÕû¿ÃÊ÷
+	void preOrder(NodePointer tree);			// å…ˆåºéå†
+	void inOrder(NodePointer tree);				// ä¸­åºéå†
+	void postOrder(NodePointer tree);			// ååºéå†
+	unsigned int getHeight(NodePointer tree);		// è·å¾—æ ‘çš„é«˜åº¦
+	void destroy(NodePointer tree);				// é‡Šæ”¾æ•´æ£µæ ‘
 
-// ¸¨Öúµ¥Ôª²âÊÔ
+// è¾…åŠ©å•å…ƒæµ‹è¯•
 public:
-	// µ¥Ôª²âÊÔÓÃ,Ä£°åÓÑÔªº¯Êı. ĞèÒª×¢ÒâµÄÊÇÓÑÔªº¯Êı²¢Ã»ÓĞthisÖ¸Õë
+	// å•å…ƒæµ‹è¯•ç”¨,æ¨¡æ¿å‹å…ƒå‡½æ•°. éœ€è¦æ³¨æ„çš„æ˜¯å‹å…ƒå‡½æ•°å¹¶æ²¡æœ‰thisæŒ‡é’ˆ
 	template<class T>
 	friend T getTestData(const BSTree<T>& tree, int pos);
 
@@ -64,7 +64,7 @@ template<class T>
 BSTree<T>::~BSTree()
 {
 	destroy(root);
-	root = NULL; // ÒÔ·Àroot³ÉÎª¡°Ò°Ö¸Õë¡±
+	root = NULL; // ä»¥é˜²rootæˆä¸ºâ€œé‡æŒ‡é’ˆâ€
 }
 
 template<class T>
@@ -157,7 +157,7 @@ bool BSTree<T>::addNode(T k, T val)
 		{
 			if (k == tmpPtr->key)
 			{
-				// Èç¹û¹Ø¼ü×ÖÖØ¸´£¬ÔòÌí¼ÓÊ§°Ü£¬ÇÒÊÍ·ÅÒÑ¾­ÉêÇëµ½µÄÄÚ´æ
+				// å¦‚æœå…³é”®å­—é‡å¤ï¼Œåˆ™æ·»åŠ å¤±è´¥ï¼Œä¸”é‡Šæ”¾å·²ç»ç”³è¯·åˆ°çš„å†…å­˜
 				isSuccess = false;
 				delete ptr;
 				break;
@@ -205,15 +205,15 @@ bool BSTree<T>::delNode(T k)
 	}
 	else
 	{
-		// É¾³ıµÄ½ÚµãÃ»ÓĞ×ÓÊ÷
+		// åˆ é™¤çš„èŠ‚ç‚¹æ²¡æœ‰å­æ ‘
 		if (delNodePtr->left == NULL && delNodePtr->right == NULL)
 		{
-			// Èç¹ûÊÇ¸ù½Úµã
+			// å¦‚æœæ˜¯æ ¹èŠ‚ç‚¹
 			if (delNodePtr == root)
 			{
 				root = NULL;
 			}
-			// Èç¹û²»ÊÇ¸ù½Úµã
+			// å¦‚æœä¸æ˜¯æ ¹èŠ‚ç‚¹
 			else 
 			{
 				NodePointer parentPtr = delNodePtr->parent;
@@ -231,11 +231,11 @@ bool BSTree<T>::delNode(T k)
 			delNodePtr = NULL;
 		}
 
-		// É¾³ıµÄ½ÚµãÖ»ÓĞÒ»¸ö×ÓÊ÷
+		// åˆ é™¤çš„èŠ‚ç‚¹åªæœ‰ä¸€ä¸ªå­æ ‘
 		else if (delNodePtr->left == NULL || delNodePtr->right == NULL)
 		{
 			NodePointer tmp = NULL;
-			// Èç¹ûÊÇ¸ù½Úµã
+			// å¦‚æœæ˜¯æ ¹èŠ‚ç‚¹
 			if (delNodePtr == root)
 			{
 				if (delNodePtr->left == NULL)
@@ -249,7 +249,7 @@ bool BSTree<T>::delNode(T k)
 				tmp->parent = NULL;
 				root = tmp;
 			}
-			// Èç¹û²»ÊÇ¸ù½Úµã
+			// å¦‚æœä¸æ˜¯æ ¹èŠ‚ç‚¹
 			else
 			{
 				NodePointer parentPtr = delNodePtr->parent;
@@ -270,92 +270,92 @@ bool BSTree<T>::delNode(T k)
 			delNodePtr = NULL;
 		}
 
-		// É¾³ıµÄ½ÚµãÓĞÁ½¸ö×ÓÊ÷
+		// åˆ é™¤çš„èŠ‚ç‚¹æœ‰ä¸¤ä¸ªå­æ ‘
 		else
 		{
-			// È¡³ö´ıÉ¾½ÚµãµÄ¸¸½Úµã
+			// å–å‡ºå¾…åˆ èŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹
 			NodePointer parentPtr = delNodePtr->parent;
 
-			// È¡³ö´ıÉ¾½ÚµãµÄ×óÓÒ½Úµã
+			// å–å‡ºå¾…åˆ èŠ‚ç‚¹çš„å·¦å³èŠ‚ç‚¹
 			NodePointer delNodeLeftPtr = delNodePtr->left, delNodeRightPtr = NULL;
 
-			// Ìæ´ú½Úµã´Ó´ıÉ¾½ÚµãµÄÓÒ×ÓÊ÷ÖĞËÑË÷
+			// æ›¿ä»£èŠ‚ç‚¹ä»å¾…åˆ èŠ‚ç‚¹çš„å³å­æ ‘ä¸­æœç´¢
 			NodePointer replaceNode = delNodePtr->right;
 			NodePointer replaceNodeParentPtr = NULL;
 
-			// ÕÒ³ö´ıÉ¾½ÚµãµÄÓÒ×ÓÊ÷µÄ×î×óµÄ½Úµã
+			// æ‰¾å‡ºå¾…åˆ èŠ‚ç‚¹çš„å³å­æ ‘çš„æœ€å·¦çš„èŠ‚ç‚¹
 			while (replaceNode->left != NULL)
 			{
 				replaceNode = replaceNode->left;
 			}
 
-			// È¡³öÌæ´ú½ÚµãµÄ¸¸½Úµã
+			// å–å‡ºæ›¿ä»£èŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹
 			replaceNodeParentPtr = replaceNode->parent;
 
-			// ½«Ô­´ıÉ¾½ÚµãµÄ×ó½Úµã  µÄ¸¸½Úµã  ¸ÄÎªÖ¸Ïò  Ìæ´ú½Úµã
+			// å°†åŸå¾…åˆ èŠ‚ç‚¹çš„å·¦èŠ‚ç‚¹  çš„çˆ¶èŠ‚ç‚¹  æ”¹ä¸ºæŒ‡å‘  æ›¿ä»£èŠ‚ç‚¹
 			delNodeLeftPtr->parent = replaceNode;
 
 
-			// ¸øÌæ»»½ÚµãµÄ×óÓÒ¸³×ÓÊ÷ =================================================== ¿ªÊ¼
+			// ç»™æ›¿æ¢èŠ‚ç‚¹çš„å·¦å³èµ‹å­æ ‘ =================================================== å¼€å§‹
 
-			// ÏÈ¸³×ó×ÓÊ÷ ------------------------------------------------------
+			// å…ˆèµ‹å·¦å­æ ‘ ------------------------------------------------------
 			replaceNode->left = delNodePtr->left;
 
-			// ÔÙ¸³ÓÒ×ÓÊ÷ ------------------------------------------------------
+			// å†èµ‹å³å­æ ‘ ------------------------------------------------------
 
-			// Èç¹û·¢ÏÖ±»É¾½ÚµãÓÒ×ÓÊ÷ÊÇÒ»ÓÒĞ±Ê÷£¨ÈÎÒ»½Úµã¶¼Ã»ÓĞ×ó×ÓÊ÷£¬Òò´Ë±»Ìæ´ú½Úµã¾ÍÊÇ´ıÉ¾½ÚµãµÄÓÒ½Úµã£©
+			// å¦‚æœå‘ç°è¢«åˆ èŠ‚ç‚¹å³å­æ ‘æ˜¯ä¸€å³æ–œæ ‘ï¼ˆä»»ä¸€èŠ‚ç‚¹éƒ½æ²¡æœ‰å·¦å­æ ‘ï¼Œå› æ­¤è¢«æ›¿ä»£èŠ‚ç‚¹å°±æ˜¯å¾…åˆ èŠ‚ç‚¹çš„å³èŠ‚ç‚¹ï¼‰
 			if (delNodePtr->right == replaceNode)	
 			{
-				// Èç¹û±»É¾½ÚµãµÄÓÒĞ±Ê÷¸ÕºÃÖ»ÓĞÒ»¸ö½Úµã
+				// å¦‚æœè¢«åˆ èŠ‚ç‚¹çš„å³æ–œæ ‘åˆšå¥½åªæœ‰ä¸€ä¸ªèŠ‚ç‚¹
 				if ((delNodePtr->right)->right == NULL)
 				{
 					replaceNode->right = NULL;
-					// Ê¹´ıÉ¾½ÚµãµÄÓÒ½ÚµãÖ¸ÏòÎª¿Õ
+					// ä½¿å¾…åˆ èŠ‚ç‚¹çš„å³èŠ‚ç‚¹æŒ‡å‘ä¸ºç©º
 					delNodeRightPtr = NULL;
 				}
-				// Èç¹û²»Ö¹Ò»¸ö½Úµã
+				// å¦‚æœä¸æ­¢ä¸€ä¸ªèŠ‚ç‚¹
 				else
 				{
 					replaceNode->right = (delNodePtr->right)->right;
-					// Ê¹´ıÉ¾½ÚµãµÄÓÒÓÒ½ÚµãµÄ¸¸½ÚµãÎªÌæ´ú½Úµã
+					// ä½¿å¾…åˆ èŠ‚ç‚¹çš„å³å³èŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹ä¸ºæ›¿ä»£èŠ‚ç‚¹
 					NodePointer rightRightPtr = NULL;
 					rightRightPtr = (delNodePtr->right)->right;
 					rightRightPtr->parent = replaceNode;
 				}
 			}
-			// Èç¹û±»É¾½ÚµãµÄÓÒ×ÓÊ÷²¢²»ÊÇÒ»¸öÓÒĞ±Ê÷£¬Ôò¸ÃÓÒ×ÓÊ÷±ØÈ»´æÔÚÒ»¸ö×î×óµÄ×ó½Úµã¡£
+			// å¦‚æœè¢«åˆ èŠ‚ç‚¹çš„å³å­æ ‘å¹¶ä¸æ˜¯ä¸€ä¸ªå³æ–œæ ‘ï¼Œåˆ™è¯¥å³å­æ ‘å¿…ç„¶å­˜åœ¨ä¸€ä¸ªæœ€å·¦çš„å·¦èŠ‚ç‚¹ã€‚
 			else
 			{
 				replaceNode->right = delNodePtr->right;
 
-				// ½«Ìæ´ú½ÚµãµÄ¸¸½Úµã×óÖ¸ÏòÎª¿Õ£¨×¢Òâ£ºÌæ´ú½ÚµãÒÑ¾­ÊÇ×î×óµÄÒ»¸ö½Úµã£©
+				// å°†æ›¿ä»£èŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹å·¦æŒ‡å‘ä¸ºç©ºï¼ˆæ³¨æ„ï¼šæ›¿ä»£èŠ‚ç‚¹å·²ç»æ˜¯æœ€å·¦çš„ä¸€ä¸ªèŠ‚ç‚¹ï¼‰
 				replaceNodeParentPtr->left = NULL;
 
-				// ½«´ıÉ¾½ÚµãµÄÔ­ÓÒ½ÚµãµÄ¸¸½ÚµãÖ¸ÏòĞÂµÄÌæ´ú½Úµã
+				// å°†å¾…åˆ èŠ‚ç‚¹çš„åŸå³èŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹æŒ‡å‘æ–°çš„æ›¿ä»£èŠ‚ç‚¹
 				delNodeRightPtr = delNodePtr->right;
 				delNodeRightPtr->parent = replaceNode;
 				
 			}
 
-			// ¸øÌæ»»½ÚµãµÄ×óÓÒ¸³×ÓÊ÷ =================================================== ½áÊø
+			// ç»™æ›¿æ¢èŠ‚ç‚¹çš„å·¦å³èµ‹å­æ ‘ =================================================== ç»“æŸ
 
 
-			// ÅĞ¶Ï´ıÉ¾½ÚµãÊÇ·ñÊÇ¸ù½Úµã ================================================= ¿ªÊ¼
-			// Èç¹û´ıÉ¾½ÚµãÊÇ¸ù½Úµã
+			// åˆ¤æ–­å¾…åˆ èŠ‚ç‚¹æ˜¯å¦æ˜¯æ ¹èŠ‚ç‚¹ ================================================= å¼€å§‹
+			// å¦‚æœå¾…åˆ èŠ‚ç‚¹æ˜¯æ ¹èŠ‚ç‚¹
 			if (parentPtr == NULL)
 			{
 				replaceNode->parent = NULL;
 				root = replaceNode;
 			}
-			// Èç¹û²»ÊÇ
+			// å¦‚æœä¸æ˜¯
 			else
 			{
-				// Èç¹û´ıÉ¾½ÚµãÊÇ×ó½Úµã
+				// å¦‚æœå¾…åˆ èŠ‚ç‚¹æ˜¯å·¦èŠ‚ç‚¹
 				if (parentPtr->left == delNodePtr)
 				{
 					parentPtr->left = replaceNode;
 				}
-				// Èç¹û´ıÉ¾½ÚµãÊÇÓÒ½Úµã
+				// å¦‚æœå¾…åˆ èŠ‚ç‚¹æ˜¯å³èŠ‚ç‚¹
 				else
 				{
 					parentPtr->right = replaceNode;
@@ -363,9 +363,9 @@ bool BSTree<T>::delNode(T k)
 				replaceNode->parent = parentPtr;
 			}
 			
-			// ÅĞ¶Ï´ıÉ¾½ÚµãÊÇ·ñÊÇ¸ù½Úµã ================================================= ½áÊø
+			// åˆ¤æ–­å¾…åˆ èŠ‚ç‚¹æ˜¯å¦æ˜¯æ ¹èŠ‚ç‚¹ ================================================= ç»“æŸ
 
-			// ÊÍ·Å´ıÉ¾½ÚµãÄÚ´æ
+			// é‡Šæ”¾å¾…åˆ èŠ‚ç‚¹å†…å­˜
 			delete delNodePtr;
 			delNodePtr = NULL;
 
@@ -402,7 +402,7 @@ T BSTree<T>::getMaxmum()
 template<class T>
 Node<T> * BSTree<T>::searchNode(T k)
 {
-	// ÓÅÏÈÅĞ¶ÏÊ÷ÊÇ·ñÎª¿Õ
+	// ä¼˜å…ˆåˆ¤æ–­æ ‘æ˜¯å¦ä¸ºç©º
 	if (root == NULL)
 	{
 		return NULL;
@@ -500,7 +500,7 @@ Node<T> * BSTree<T>::getSuccessor(T k)
 			while (ptr->key < tmpPtr->key)
 			{
 				ptr = ptr->parent;
-				// Èç¹ûÕÒµ½¸ù½ÚµãÈÔÕÒ²»µ½
+				// å¦‚æœæ‰¾åˆ°æ ¹èŠ‚ç‚¹ä»æ‰¾ä¸åˆ°
 				if (ptr == root && ptr->key < tmpPtr->key)
 				{
 					ptr = NULL;
@@ -523,7 +523,7 @@ void BSTree<T>::preOrder()
 template<class T>
 void BSTree<T>::preOrder(NodePointer tree)
 {
-	if (tree != NULL)	// ×¢ÒâÕâÀï²»ÊÇÓÃwhileÑ­»·
+	if (tree != NULL)	// æ³¨æ„è¿™é‡Œä¸æ˜¯ç”¨whileå¾ªç¯
 	{
 		// cout << tmpPtr->data << end;
 		testData[count] = tree->data;
@@ -533,7 +533,7 @@ void BSTree<T>::preOrder(NodePointer tree)
 	}
 }
 
-// ÖĞĞò±éÀúµÄÊä³öÊÇ°´´ÓĞ¡µ½´óµÄÅÅĞòµÄ
+// ä¸­åºéå†çš„è¾“å‡ºæ˜¯æŒ‰ä»å°åˆ°å¤§çš„æ’åºçš„
 template<class T>
 void BSTree<T>::inOrder()
 {
@@ -590,17 +590,17 @@ void BSTree<T>::destroy(NodePointer tree)
 		leftPtr = tree->left;
 		rightPtr = tree->right;
 		delete tree;
-		tree = NULL;	// ÕâÒ»¾äÊ®·ÖÖØÒª¡£ÒòÎªtree±»ÊÍ·Åºó³ÉÎªÒ»¸ö
-						// ¡°Ò°Ö¸Õë¡±£¬¼´²»ÊÇNULLÖ¸Õë£¬Òò´Ë»áÈÃwhileÑ­»·
-						// ÔÚÊÍ·ÅÍêËùÓĞµÄÄÚ´æºóÔÙÑ­»·Ò»´Î£¬¶ø´ËÊ±tree
-						// ÒÑ¾­ÊÇÒ»¸ö¡°Ò°Ö¸Õë¡±£¬¶ÔËüÔÙ½øĞĞÄÚ´æÊÍ·Å±ØÈ»³ö´í
+		tree = NULL;	// è¿™ä¸€å¥ååˆ†é‡è¦ã€‚å› ä¸ºtreeè¢«é‡Šæ”¾åæˆä¸ºä¸€ä¸ª
+						// â€œé‡æŒ‡é’ˆâ€ï¼Œå³ä¸æ˜¯NULLæŒ‡é’ˆï¼Œå› æ­¤ä¼šè®©whileå¾ªç¯
+						// åœ¨é‡Šæ”¾å®Œæ‰€æœ‰çš„å†…å­˜åå†å¾ªç¯ä¸€æ¬¡ï¼Œè€Œæ­¤æ—¶tree
+						// å·²ç»æ˜¯ä¸€ä¸ªâ€œé‡æŒ‡é’ˆâ€ï¼Œå¯¹å®ƒå†è¿›è¡Œå†…å­˜é‡Šæ”¾å¿…ç„¶å‡ºé”™
 		destroy(leftPtr);
 		destroy(rightPtr);
 	}
 
 }
 
-// Ä£°åÓÑÔªº¯Êı
+// æ¨¡æ¿å‹å…ƒå‡½æ•°
 template<class T>
 T getTestData(const BSTree<T>& tree, int pos)
 {
