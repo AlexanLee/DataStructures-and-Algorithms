@@ -13,18 +13,18 @@ class AVLTree : public BSTree<T>
 public:
 	AVLTree();
 	virtual ~AVLTree();
-	virtual bool addNode(T k, T val);				// ¸²¸ÇBSTreeÖĞµÄaddNodeº¯Êı
-	virtual bool delNode(T k);						// ¸²¸ÇBSTreeÖĞµÄdelNodeº¯Êı
+	virtual bool addNode(T k, T val);	// è¦†ç›–BSTreeä¸­çš„addNodeå‡½æ•°
+	virtual bool delNode(T k);		// è¦†ç›–BSTreeä¸­çš„delNodeå‡½æ•°
 
 private:
 	Node<T> * findImbalanceNode(NodePointer ptr);
-	// LL£º×ó×ó¶ÔÓ¦µÄÇé¿ö(×óµ¥Ğı×ª)¡£
+	// LLï¼šå·¦å·¦å¯¹åº”çš„æƒ…å†µ(å·¦å•æ—‹è½¬)ã€‚
 	Node<T> * leftLeftRotation(NodePointer k2);
-	// RR£ºÓÒÓÒ¶ÔÓ¦µÄÇé¿ö(ÓÒµ¥Ğı×ª)¡£
+	// RRï¼šå³å³å¯¹åº”çš„æƒ…å†µ(å³å•æ—‹è½¬)ã€‚
 	Node<T> * rightRightRotation(NodePointer k1);
-	// LR£º×óÓÒ¶ÔÓ¦µÄÇé¿ö(×óË«Ğı×ª)¡£
+	// LRï¼šå·¦å³å¯¹åº”çš„æƒ…å†µ(å·¦åŒæ—‹è½¬)ã€‚
 	Node<T> * leftRightRotation(NodePointer k3);
-	// RL£ºÓÒ×ó¶ÔÓ¦µÄÇé¿ö(ÓÒË«Ğı×ª)¡£
+	// RLï¼šå³å·¦å¯¹åº”çš„æƒ…å†µ(å³åŒæ—‹è½¬)ã€‚
 	Node<T> * rightLeftRotation(NodePointer k1);
 
 };
@@ -195,7 +195,7 @@ bool AVLTree<T>::delNode(T k)
 				NodePointer prePreParent = NULL;
 				NodePointer lNode = NULL, rNode = NULL;
 				BSTree<T>::delNode(k);
-				// ÕâÀïĞèÒªµİ¹é²éÕÒ²»Æ½ºâµã,ÒÔ·ÀÖ¹¸ß²ã½áµã²»Æ½ºâ¶øµÍ²ã½áµãÆ½ºâµÄÇé¿ö
+				// è¿™é‡Œéœ€è¦é€’å½’æŸ¥æ‰¾ä¸å¹³è¡¡ç‚¹,ä»¥é˜²æ­¢é«˜å±‚ç»“ç‚¹ä¸å¹³è¡¡è€Œä½å±‚ç»“ç‚¹å¹³è¡¡çš„æƒ…å†µ
 				NodePointer tmpPtr = findImbalanceNode(preParent);
 				if (tmpPtr != NULL)
 				{
@@ -316,7 +316,7 @@ Node<T> * AVLTree<T>::findImbalanceNode(NodePointer ptr)
 	}
 }
 
-// LL£º×ó×ó¶ÔÓ¦µÄÇé¿ö(×óµ¥Ğı×ª)¡£
+// LLï¼šå·¦å·¦å¯¹åº”çš„æƒ…å†µ(å·¦å•æ—‹è½¬)ã€‚
 template<class T>
 Node<T> * AVLTree<T>::leftLeftRotation(Node<T>* k2)
 {
@@ -354,7 +354,7 @@ Node<T> * AVLTree<T>::leftLeftRotation(Node<T>* k2)
 	return k1;
 }
 
-// RR£ºÓÒÓÒ¶ÔÓ¦µÄÇé¿ö(ÓÒµ¥Ğı×ª)¡£
+// RRï¼šå³å³å¯¹åº”çš„æƒ…å†µ(å³å•æ—‹è½¬)ã€‚
 template<class T>
 Node<T> * AVLTree<T>::rightRightRotation(Node<T>* k1)
 {
@@ -392,7 +392,7 @@ Node<T> * AVLTree<T>::rightRightRotation(Node<T>* k1)
 	return k2;
 }
 
-// LR£º×óÓÒ¶ÔÓ¦µÄÇé¿ö(×óË«Ğı×ª)¡£
+// LRï¼šå·¦å³å¯¹åº”çš„æƒ…å†µ(å·¦åŒæ—‹è½¬)ã€‚
 template<class T>
 Node<T> * AVLTree<T>::leftRightRotation(Node<T>* k3)
 {
@@ -401,7 +401,7 @@ Node<T> * AVLTree<T>::leftRightRotation(Node<T>* k3)
 	return leftLeftRotation(k3);
 }
 
-// RL£ºÓÒ×ó¶ÔÓ¦µÄÇé¿ö(ÓÒË«Ğı×ª)¡£
+// RLï¼šå³å·¦å¯¹åº”çš„æƒ…å†µ(å³åŒæ—‹è½¬)ã€‚
 template<class T>
 Node<T> * AVLTree<T>::rightLeftRotation(Node<T>* k1)
 {
