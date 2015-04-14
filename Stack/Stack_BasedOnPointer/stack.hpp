@@ -23,15 +23,15 @@ public:
 public:
 	Stack();
 	virtual ~Stack();
-	Stack(const Stack& orig);	// �������캯��
-	Stack& operator=(const Stack& orig);	// ��ֵ���������
+	Stack(const Stack& orig);		// 拷贝构造函数
+	Stack& operator=(const Stack& orig);	// 赋值运算符重载
 	bool isEmpty();
-	bool push(T val);		// ��ջ����ջ��������Ԫ�ز���ջ����
-	T top();				// ȡջ��Ԫ�ء���ջS�ǿգ��򷵻�ջ��Ԫ�أ������ı�ջ��״̬��
-	bool pop();				// ��ջ����ջ�ǿգ���ջ��Ԫ��ɾȥ���������Ƿ���ջ�ɹ��ı�־��
-							// ����û�в��÷��ر�ɾջ��Ԫ�ص�ԭ����������д����һ��ģ�壬
-							// ��ջΪ�յ�ʱ�򲻷��㷵�ء���Ȼ����������ǿ���ͨ�����Ի�
-							// ���쳣������ġ����������ɸ��ݾ������������
+	bool push(T val);			// 进栈。若栈不满，则将元素插入栈顶。
+	T top();				// 取栈顶元素。若栈S非空，则返回栈顶元素，但不改变栈的状态。
+	bool pop();				// 退栈。若栈非空，则将栈顶元素删去，并返回是否退栈成功的标志。
+						// 这里没有采用返回被删栈顶元素的原因在于这里写的是一个模板，
+						// 当栈为空的时候不方便返回。当然，这个问题是可以通过断言或
+						// 抛异常来解决的。具体做法可根据具体情况来定。
 	int getSizeOfStack();
 
 private:
@@ -60,7 +60,7 @@ Stack<T>::~Stack()
 template<class T>
 Stack<T>::Stack(const Stack& orig)
 {
-	stack = NULL;	// ��Ҫ�ر�ע����ǣ����ÿ������캯��ʱ�����ᡰ��ǰ�����ù��캯��
+	stack = NULL;	// 需要特别注意的是，调用拷贝构造函数时并不会“提前”调用构造函数
 	NodePointer tmpPtr = orig.stack;
 	while (tmpPtr != NULL)
 	{
@@ -70,10 +70,10 @@ Stack<T>::Stack(const Stack& orig)
 }
 
 template<class T>
-Stack<T>& Stack<T>::operator=(const Stack& orig)	// ������Ҫ�ǳ�ע�ⷵ��ֵҪдΪ
-													// Stack<T>������Stack
+Stack<T>& Stack<T>::operator=(const Stack& orig)	// 这里需要非常注意返回值要写为
+							// Stack<T>而不是Stack
 {
-	//stack = NULL; ��������Բ��ã���Ϊ���á���ֵ�������ǰ����ǰ���ù��캯��
+	//stack = NULL; 在这里可以不用，因为调用“赋值运算符”前会提前调用构造函数
 	NodePointer tmpPtr = orig.stack;
 	while (tmpPtr != NULL)
 	{
