@@ -591,9 +591,9 @@ void BSTree<T>::destroy(NodePointer tree)
 		rightPtr = tree->right;
 		delete tree;
 		tree = NULL;	// 这一句十分重要。因为tree被释放后成为一个
-						// “野指针”，即不是NULL指针，因此会让while循环
-						// 在释放完所有的内存后再循环一次，而此时tree
-						// 已经是一个“野指针”，对它再进行内存释放必然出错
+				// “野指针”，即不是NULL指针，因此会让while循环
+				// 在释放完所有的内存后再循环一次，而此时tree
+				// 已经是一个“野指针”，对它再进行内存释放必然出错
 		destroy(leftPtr);
 		destroy(rightPtr);
 	}
