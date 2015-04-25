@@ -3,7 +3,7 @@
 
 #include "Sorting.h"
 
-const int MAXDIGITS = 3;	// 最多“十位”数
+const int MAXDIGITS = 3;	// 最多多少个“十位”数
 
 class RadixSort : public Sorting
 {
