@@ -1,6 +1,7 @@
 #include "BFS_n_DFS.h"
 #include "Queue.hpp"
 #include <iostream>
+#include <map>
 #include <cassert>
 using namespace std;
 
@@ -8,7 +9,6 @@ Graph::Graph()
 {
 	vexNum = 0;
 	edgeNum = 0;
-	//vexNode = new VNode[MAXNUM];
 	for (int i = 0; i < MAXNUM; i++)
 	{
 		vexNode[i].id = i;
@@ -22,16 +22,16 @@ Graph::~Graph()
 {
 	for (int i = 0; i < MAXNUM; i++)
 	{
-		ENode * edgPtr = vexNode[i].firstEdge;
+		ENode * edgePtr = vexNode[i].firstEdge;
 		ENode * tmpPtr;
-		while (edgPtr != nullptr)
+		while (edgePtr != nullptr)
 		{
-			tmpPtr = edgPtr->nextEdge;
-			delete edgPtr;
-			edgPtr = tmpPtr;
+			tmpPtr = edgePtr->nextEdge;
+			delete edgePtr;
+			edgePtr = tmpPtr;
 		}
 		vexNode[i].firstEdge = nullptr;
-		edgPtr = nullptr;
+		edgePtr = nullptr;
 		tmpPtr = nullptr;
 	}
 }
@@ -39,16 +39,34 @@ Graph::~Graph()
 void Graph::init(int * firstVex, int * secondVex, int len)
 {
 	assert(len >= 0);
+	map<int, int> vexMap;
+	map<int, vector<int> > edgeMap;
 	for (int i = 0; i < len; i++)
 	{
-		assert(firstVex[i] >= 0 && firstVex[i] < MAXNUM);
-		assert(secondVex[i] >= 0 && secondVex[i] < MAXNUM);
-		addEdge(firstVex[i], secondVex[i]);
+		bool isSuccess = addEdge(firstVex[i], secondVex[i]);
+		if (isSuccess)
+		{
+			vexMap[firstVex[i]] = firstVex[i];
+			vexMap[secondVex[i]] = secondVex[i];			// in a undirected graph, it is unnecessary, but in a directed graph, it is needed.
+			edgeMap[firstVex[i]].push_back(secondVex[i]);	// repeated edge has been remove in addEdge
+		}
 	}
+
+	// to calculate vexNum & edgeNum
+	vexNum = vexMap.size();
+	map<int, vector<int> >::iterator itr = edgeMap.begin();
+	for (; itr != edgeMap.end(); itr++)
+	{
+		edgeNum += itr->second.size();
+	}
+	edgeNum /= 2;
 }
 
-void Graph::addEdge(int firstVex, int secondVex)
+bool Graph::addEdge(int firstVex, int secondVex)
 {
+	assert(firstVex >= 0 && firstVex < MAXNUM);
+	assert(secondVex >= 0 && secondVex < MAXNUM);
+
 	ENode * edge = new ENode;
 	edge->firstVex = secondVex;
 	edge->nextEdge = nullptr;
@@ -66,17 +84,28 @@ void Graph::addEdge(int firstVex, int secondVex)
 			if (edgePtr->firstVex == secondVex)	// If there has been a repeated edge
 			{
 				delete edge;
-				return;
+				return false;
 			}
 			parentEdgePtr = edgePtr;
 			edgePtr = edgePtr->nextEdge;
 		}
 		parentEdgePtr->nextEdge = edge;
 	}
+	return true;
+}
+
+void Graph::BFS()
+{
+	// just for test
+	firstVexes.clear();
+	secondVexes.clear();
+
+	BFS(vexNode[0].id);
 }
 
 void Graph::BFS(int vexID)
 {
+	assert(vexID >= 0 && vexID < MAXNUM);
 	Queue<VNode, MAXNUM> queue;
 	vexNode[vexID].isVisited = true;
 	queue.enQueue(vexNode[vexID]);
@@ -87,6 +116,10 @@ void Graph::BFS(int vexID)
 		int sz = adjNodes.size();
 		for (int i = 0; i < sz; i++)
 		{
+			// just for test
+			firstVexes.push_back(currentNode.id);
+			secondVexes.push_back(vexNode[adjNodes[i]].id);
+
 			if (!vexNode[adjNodes[i]].isVisited)
 			{
 				vexNode[adjNodes[i]].isVisited = true;
@@ -97,13 +130,27 @@ void Graph::BFS(int vexID)
 	}
 }
 
+void Graph::DFS()
+{
+	// just for test
+	firstVexes.clear();
+	secondVexes.clear();
+
+	DFS(vexNode[0].id);
+}
+
 void Graph::DFS(int vexID)
 {
+	assert(vexID >= 0 && vexID < MAXNUM);
 	vexNode[vexID].isVisited = true;
 	vector<int> adjNodes = adj(vexID);
 	int sz = adjNodes.size();
 	for (int i = 0; i < sz; i++)
 	{
+		// just for test
+		firstVexes.push_back(vexID);
+		secondVexes.push_back(vexNode[adjNodes[i]].id);
+
 		if (!vexNode[adjNodes[i]].isVisited)
 		{
 			vexNode[adjNodes[i]].distance = vexNode[vexID].distance + 1;
@@ -125,12 +172,22 @@ vector<int> Graph::adj(int vexID)
 	return ret;
 }
 
-int Graph::Vex()
+int Graph::V()
 {
 	return vexNum;
 }
 
-int Graph::Edge()
+int Graph::E()
 {
 	return edgeNum;
+}
+
+vector<int> getFirstVexes(Graph & graph)
+{
+	return graph.firstVexes;
+}
+
+vector<int> getSecondVexes(Graph & graph)
+{
+	return graph.secondVexes;
 }

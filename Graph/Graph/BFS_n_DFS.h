@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-const int MAXNUM = 6;
+const int MAXNUM = 1024;
 
 class ENode
 {
@@ -29,20 +29,29 @@ public:
 	virtual ~Graph();
 	void init(int * firstVex, int * secondVex, int len);	// initialization of the whole graph
 
+	void BFS();							// breadth first search
+	void DFS();							// depth first search
 	void BFS(int vexID);				// breadth first search
 	void DFS(int vexID);				// depth first search
 
 	vector<int> adj(int vexID);			// return the vertexes next to vex
-	int Vex();							// return the number of vertexes
-	int Edge();							// return the number of edges
+	int V();							// return the number of vertexes
+	int E();							// return the number of edges
 	//void print();						// 
 
+	// just for test
+	friend vector<int> getFirstVexes(Graph & graph);
+	friend vector<int> getSecondVexes(Graph & graph);
+
 private:
-	void addEdge(int firstVex, int secondVex);
+	bool addEdge(int firstVex, int secondVex);
 	VNode vexNode[MAXNUM];				// vertexes
 	int vexNum;							// number of vertexes
 	int edgeNum;						// number of edges
 
+	// just for test
+	vector<int> firstVexes;
+	vector<int> secondVexes;
 };
 
 
