@@ -30,11 +30,11 @@ BOOST_AUTO_TEST_CASE( Basic )
 	BOOST_REQUIRE(testGraph->V() == 6);
 	BOOST_REQUIRE(testGraph->E() == 8);
 
-	vector<int> adjNodes = testGraph->adj(0);
-	int sz = adjNodes.size();
+	vector<int> adjVexes = testGraph->adj(0);
+	int sz = adjVexes.size();
 	for (int i = 0; i < sz; i++)
 	{
-		BOOST_REQUIRE(adjNodes[i] == secondVex[i]);
+		BOOST_REQUIRE(adjVexes[i] == secondVex[i]);
 	}
 
 }
@@ -50,6 +50,12 @@ BOOST_AUTO_TEST_CASE( BFS )
 	vector<int> firstVexes = getFirstVexes(*testGraph);
 	vector<int> secondVexes = getSecondVexes(*testGraph);
 
+	vector<int> pathTo_5 = testGraph->pathTo(5);
+	int path[] = { 0, 5 };
+	for (int i = 1; i > -1; i--)
+	{
+		BOOST_REQUIRE(pathTo_5[i] == path[1 - i]);
+	}
 }
 
 BOOST_AUTO_TEST_CASE( DFS )
@@ -63,6 +69,12 @@ BOOST_AUTO_TEST_CASE( DFS )
 	vector<int> firstVexes = getFirstVexes(*testGraph);
 	vector<int> secondVexes = getSecondVexes(*testGraph);
 
+	vector<int> pathTo_5 = testGraph->pathTo(5);
+	int path[] = {0, 2, 3, 5};
+	for (int i = 3; i > -1; i--)
+	{
+		BOOST_REQUIRE(pathTo_5[i] == path[3 - i]);
+	}
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -33,8 +33,9 @@ public:
 	void DFS();							// depth first search
 	void BFS(int vexID);				// breadth first search
 	void DFS(int vexID);				// depth first search
+	vector<int> pathTo(int vexID);		// return path to the vex
 
-	vector<int> adj(int vexID);			// return the vertexes next to vex
+	vector<int> adj(int vexID);			// return the vertexes next to the vex
 	int V();							// return the number of vertexes
 	int E();							// return the number of edges
 	//void print();						// 
@@ -46,6 +47,7 @@ public:
 private:
 	bool addEdge(int firstVex, int secondVex);
 	VNode vexNode[MAXNUM];				// vertexes
+	int edgeTo[MAXNUM];					// a vector of available edge between two vertexes
 	int vexNum;							// number of vertexes
 	int edgeNum;						// number of edges
 

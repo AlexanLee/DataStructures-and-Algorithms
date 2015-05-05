@@ -15,6 +15,7 @@ Graph::Graph()
 		vexNode[i].isVisited = false;
 		vexNode[i].distance = 0;
 		vexNode[i].firstEdge = nullptr;
+		edgeTo[i] = -1;
 	}
 }
 
@@ -44,6 +45,7 @@ void Graph::init(int * firstVex, int * secondVex, int len)
 	for (int i = 0; i < len; i++)
 	{
 		bool isSuccess = addEdge(firstVex[i], secondVex[i]);
+		// assist in calculating vexNum & edgeNum
 		if (isSuccess)
 		{
 			vexMap[firstVex[i]] = firstVex[i];
@@ -111,20 +113,23 @@ void Graph::BFS(int vexID)
 	queue.enQueue(vexNode[vexID]);
 	while(!queue.isEmpty())
 	{
-		VNode currentNode = queue.deQueue();
-		vector<int> adjNodes = adj(currentNode.id);
-		int sz = adjNodes.size();
+		VNode currentVex = queue.deQueue();
+		vector<int> adjVexes = adj(currentVex.id);
+		int sz = adjVexes.size();
 		for (int i = 0; i < sz; i++)
 		{
-			// just for test
-			firstVexes.push_back(currentNode.id);
-			secondVexes.push_back(vexNode[adjNodes[i]].id);
+			int adjVex = adjVexes[i];
 
-			if (!vexNode[adjNodes[i]].isVisited)
+			// just for test
+			firstVexes.push_back(currentVex.id);
+			secondVexes.push_back(vexNode[adjVex].id);
+
+			if (!vexNode[adjVex].isVisited)
 			{
-				vexNode[adjNodes[i]].isVisited = true;
-				vexNode[adjNodes[i]].distance = currentNode.distance + 1;
-				queue.enQueue(vexNode[adjNodes[i]]);
+				vexNode[adjVex].isVisited = true;
+				vexNode[adjVex].distance = currentVex.distance + 1;
+				edgeTo[adjVex] = currentVex.id;
+				queue.enQueue(vexNode[adjVex]);
 			}
 		}
 	}
@@ -143,20 +148,41 @@ void Graph::DFS(int vexID)
 {
 	assert(vexID >= 0 && vexID < MAXNUM);
 	vexNode[vexID].isVisited = true;
-	vector<int> adjNodes = adj(vexID);
-	int sz = adjNodes.size();
+	vector<int> adjVexes = adj(vexID);
+	int sz = adjVexes.size();
 	for (int i = 0; i < sz; i++)
 	{
+		int adjVex = adjVexes[i];
+
 		// just for test
 		firstVexes.push_back(vexID);
-		secondVexes.push_back(vexNode[adjNodes[i]].id);
+		secondVexes.push_back(vexNode[adjVex].id);
 
-		if (!vexNode[adjNodes[i]].isVisited)
+		if (!vexNode[adjVex].isVisited)
 		{
-			vexNode[adjNodes[i]].distance = vexNode[vexID].distance + 1;
-			DFS(adjNodes[i]);
+			vexNode[adjVex].distance = vexNode[vexID].distance + 1;
+			edgeTo[adjVex] = vexID;
+			DFS(adjVex);
 		}
 	}
+}
+
+vector<int> Graph::pathTo(int vexID)
+{
+	vector<int> path;
+	if (edgeTo[vexID] != -1)
+	{
+		int id = vexID;
+		int defSource = 0;	// our default source of path is at 0.
+		path.push_back(vexID);
+		while (edgeTo[id] != 0)
+		{
+			path.push_back(edgeTo[id]);
+			id = edgeTo[id];
+		}
+		path.push_back(defSource);
+	}
+	return path;
 }
 
 vector<int> Graph::adj(int vexID)
