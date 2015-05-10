@@ -9,13 +9,13 @@ struct Grpah_Fixture
 public:
 	Grpah_Fixture()
 	{
-		testGraph = new Graph;
+		testGraph = new Graph_BD;
 	}
 	~Grpah_Fixture()
 	{
 		delete testGraph;
 	}
-	Graph * testGraph;
+	Graph_BD * testGraph;
 };
 
 BOOST_FIXTURE_TEST_SUITE(Graph_Test, Grpah_Fixture)

@@ -5,39 +5,39 @@
 #include <cassert>
 using namespace std;
 
-Graph::Graph()
+Graph_BD::Graph_BD()
 {
 	vexNum = 0;
 	edgeNum = 0;
 	for (int i = 0; i < MAXNUM; i++)
 	{
-		vexNode[i].id = i;
-		vexNode[i].isVisited = false;
-		vexNode[i].distance = 0;
-		vexNode[i].firstEdge = nullptr;
+		vexNode_BD[i].id = i;
+		vexNode_BD[i].isVisited = false;
+		vexNode_BD[i].distance = 0;
+		vexNode_BD[i].firstEdge = nullptr;
 		edgeTo[i] = -1;
 	}
 }
 
-Graph::~Graph()
+Graph_BD::~Graph_BD()
 {
 	for (int i = 0; i < MAXNUM; i++)
 	{
-		ENode * edgePtr = vexNode[i].firstEdge;
-		ENode * tmpPtr;
+		ENode_BD * edgePtr = vexNode_BD[i].firstEdge;
+		ENode_BD * tmpPtr;
 		while (edgePtr != nullptr)
 		{
 			tmpPtr = edgePtr->nextEdge;
 			delete edgePtr;
 			edgePtr = tmpPtr;
 		}
-		vexNode[i].firstEdge = nullptr;
+		vexNode_BD[i].firstEdge = nullptr;
 		edgePtr = nullptr;
 		tmpPtr = nullptr;
 	}
 }
 
-void Graph::init(int * firstVex, int * secondVex, int len)
+void Graph_BD::init(int * firstVex, int * secondVex, int len)
 {
 	assert(len >= 0);
 	map<int, int> vexMap;
@@ -64,20 +64,20 @@ void Graph::init(int * firstVex, int * secondVex, int len)
 	edgeNum /= 2;
 }
 
-bool Graph::addEdge(int firstVex, int secondVex)
+bool Graph_BD::addEdge(int firstVex, int secondVex)
 {
 	assert(firstVex >= 0 && firstVex < MAXNUM);
 	assert(secondVex >= 0 && secondVex < MAXNUM);
 
-	ENode * edge = new ENode;
+	ENode_BD * edge = new ENode_BD;
 	edge->firstVex = secondVex;
 	edge->nextEdge = nullptr;
 
-	ENode * edgePtr = vexNode[firstVex].firstEdge;
-	ENode * parentEdgePtr;
+	ENode_BD * edgePtr = vexNode_BD[firstVex].firstEdge;
+	ENode_BD * parentEdgePtr;
 	if (edgePtr == nullptr)
 	{
-		vexNode[firstVex].firstEdge = edge;
+		vexNode_BD[firstVex].firstEdge = edge;
 	}
 	else
 	{
@@ -96,24 +96,24 @@ bool Graph::addEdge(int firstVex, int secondVex)
 	return true;
 }
 
-void Graph::BFS()
+void Graph_BD::BFS()
 {
 	// just for test
 	firstVexes.clear();
 	secondVexes.clear();
 
-	BFS(vexNode[0].id);
+	BFS(vexNode_BD[0].id);
 }
 
-void Graph::BFS(int vexID)
+void Graph_BD::BFS(int vexID)
 {
 	assert(vexID >= 0 && vexID < MAXNUM);
-	Queue<VNode, MAXNUM> queue;
-	vexNode[vexID].isVisited = true;
-	queue.enQueue(vexNode[vexID]);
+	Queue<VNode_BD, MAXNUM> queue;
+	vexNode_BD[vexID].isVisited = true;
+	queue.enQueue(vexNode_BD[vexID]);
 	while(!queue.isEmpty())
 	{
-		VNode currentVex = queue.deQueue();
+		VNode_BD currentVex = queue.deQueue();
 		vector<int> adjVexes = adj(currentVex.id);
 		int sz = adjVexes.size();
 		for (int i = 0; i < sz; i++)
@@ -122,32 +122,32 @@ void Graph::BFS(int vexID)
 
 			// just for test
 			firstVexes.push_back(currentVex.id);
-			secondVexes.push_back(vexNode[adjVex].id);
+			secondVexes.push_back(vexNode_BD[adjVex].id);
 
-			if (!vexNode[adjVex].isVisited)
+			if (!vexNode_BD[adjVex].isVisited)
 			{
-				vexNode[adjVex].isVisited = true;
-				vexNode[adjVex].distance = currentVex.distance + 1;
+				vexNode_BD[adjVex].isVisited = true;
+				vexNode_BD[adjVex].distance = currentVex.distance + 1;
 				edgeTo[adjVex] = currentVex.id;
-				queue.enQueue(vexNode[adjVex]);
+				queue.enQueue(vexNode_BD[adjVex]);
 			}
 		}
 	}
 }
 
-void Graph::DFS()
+void Graph_BD::DFS()
 {
 	// just for test
 	firstVexes.clear();
 	secondVexes.clear();
 
-	DFS(vexNode[0].id);
+	DFS(vexNode_BD[0].id);
 }
 
-void Graph::DFS(int vexID)
+void Graph_BD::DFS(int vexID)
 {
 	assert(vexID >= 0 && vexID < MAXNUM);
-	vexNode[vexID].isVisited = true;
+	vexNode_BD[vexID].isVisited = true;
 	vector<int> adjVexes = adj(vexID);
 	int sz = adjVexes.size();
 	for (int i = 0; i < sz; i++)
@@ -156,18 +156,18 @@ void Graph::DFS(int vexID)
 
 		// just for test
 		firstVexes.push_back(vexID);
-		secondVexes.push_back(vexNode[adjVex].id);
+		secondVexes.push_back(vexNode_BD[adjVex].id);
 
-		if (!vexNode[adjVex].isVisited)
+		if (!vexNode_BD[adjVex].isVisited)
 		{
-			vexNode[adjVex].distance = vexNode[vexID].distance + 1;
+			vexNode_BD[adjVex].distance = vexNode_BD[vexID].distance + 1;
 			edgeTo[adjVex] = vexID;
 			DFS(adjVex);
 		}
 	}
 }
 
-vector<int> Graph::pathTo(int vexID)
+vector<int> Graph_BD::pathTo(int vexID)
 {
 	vector<int> path;
 	if (edgeTo[vexID] != -1)
@@ -185,11 +185,11 @@ vector<int> Graph::pathTo(int vexID)
 	return path;
 }
 
-vector<int> Graph::adj(int vexID)
+vector<int> Graph_BD::adj(int vexID)
 {
 	assert(vexID >= 0 && vexID < MAXNUM);
 	vector<int> ret;
-	ENode * edgPtr = vexNode[vexID].firstEdge;
+	ENode_BD * edgPtr = vexNode_BD[vexID].firstEdge;
 	while (edgPtr != nullptr)
 	{
 		ret.push_back(edgPtr->firstVex);
@@ -198,22 +198,22 @@ vector<int> Graph::adj(int vexID)
 	return ret;
 }
 
-int Graph::V()
+int Graph_BD::V()
 {
 	return vexNum;
 }
 
-int Graph::E()
+int Graph_BD::E()
 {
 	return edgeNum;
 }
 
-vector<int> getFirstVexes(Graph & graph)
+vector<int> getFirstVexes(Graph_BD & graph)
 {
 	return graph.firstVexes;
 }
 
-vector<int> getSecondVexes(Graph & graph)
+vector<int> getSecondVexes(Graph_BD & graph)
 {
 	return graph.secondVexes;
 }
