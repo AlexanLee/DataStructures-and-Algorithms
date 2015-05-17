@@ -15,6 +15,7 @@ public:
 	T front();					// 访问队首的值，保持队列不变。
 	T deQueue();				// 通过删除队首的值来改变一个队列。
 	int getSizeOfQueue();
+	bool isExist(T val);
 
 private:
 	T queue[defCapacity];
@@ -95,4 +96,19 @@ template<class T, int defCapacity>
 int Queue<T, defCapacity>::getSizeOfQueue()
 {
 	return sizeOfQueue;
+}
+
+template<class T, int defCapacity>
+bool Queue<T, defCapacity>::isExist(T val)
+{
+	bool tmpIsExist = false;
+	for (int i = 0; i < sizeOfQueue; i++)
+	{
+		if (queue[i] == val)
+		{
+			tmpIsExist = true;
+			break;
+		}
+	}
+	return tmpIsExist;
 }

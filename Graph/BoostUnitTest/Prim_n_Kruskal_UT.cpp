@@ -2,14 +2,14 @@
 #include "stdafx.h"
 #include "../Graph/Prim_n_Kruskal.h"
 
-struct Grpah_Fixture
+struct Graph_Fixture_PK
 {
 public:
-	Grpah_Fixture()
+	Graph_Fixture_PK()
 	{
 		testGraph = new Graph_PK();
 	}
-	~Grpah_Fixture()
+	~Graph_Fixture_PK()
 	{
 		delete testGraph;
 	}
@@ -17,7 +17,7 @@ public:
 };
 
 
-BOOST_FIXTURE_TEST_SUITE(Graph_Test_Suite, Grpah_Fixture)
+BOOST_FIXTURE_TEST_SUITE(Graph_Test_Suite_PK, Graph_Fixture_PK)
 
 BOOST_AUTO_TEST_CASE( Prim )
 {

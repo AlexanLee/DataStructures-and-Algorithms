@@ -4,21 +4,21 @@
 #include <vector>
 #include "../Graph/BFS_n_DFS.h"
 
-struct Grpah_Fixture
+struct Graph_Fixture_BD
 {
 public:
-	Grpah_Fixture()
+	Graph_Fixture_BD()
 	{
 		testGraph = new Graph_BD;
 	}
-	~Grpah_Fixture()
+	~Graph_Fixture_BD()
 	{
 		delete testGraph;
 	}
 	Graph_BD * testGraph;
 };
 
-BOOST_FIXTURE_TEST_SUITE(Graph_Test, Grpah_Fixture)
+BOOST_FIXTURE_TEST_SUITE(Graph_Test_Suite_BD, Graph_Fixture_BD)
 
 BOOST_AUTO_TEST_CASE( Basic )
 {
