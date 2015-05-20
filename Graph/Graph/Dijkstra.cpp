@@ -119,12 +119,6 @@ void Graph_Dij::relax(int vexID)
 	untrackedVexes.deQueue();
 	vector<int> adjVexes = adj(vexID);
 	vector<int>::iterator itr = adjVexes.begin();
-	//for (; itr != adjVexes.end(); itr++)
-	//{
-	//	untrackedVexes.enQueue(*itr);
-	//}
-
-	//itr = adjVexes.begin();
 	for (; itr != adjVexes.end(); itr++)
 	{
 		int tmpVex = *itr;
@@ -146,7 +140,6 @@ void Graph_Dij::relax(int vexID)
 			if (!untrackedVexes.isExist(tmpVex))
 			{
 				untrackedVexes.enQueue(tmpVex);
-				distTo[tmpVex] = 0.0;
 			}
 		}
 	}
