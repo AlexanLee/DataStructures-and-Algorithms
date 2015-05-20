@@ -30,6 +30,9 @@
     <ClInclude Include="BFS_n_DFS.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Hungarian.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Prim_n_Kruskal.cpp">
@@ -39,6 +42,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="BFS_n_DFS.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Hungarian.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

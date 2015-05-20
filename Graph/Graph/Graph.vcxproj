@@ -79,12 +79,14 @@
     <ClInclude Include="BFS_n_DFS.h" />
     <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="Hungarian.h" />
     <ClInclude Include="Prim_n_Kruskal.h" />
     <ClInclude Include="Queue.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BFS_n_DFS.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
+    <ClCompile Include="Hungarian.cpp" />
     <ClCompile Include="Prim_n_Kruskal.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

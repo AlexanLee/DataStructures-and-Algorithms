@@ -30,8 +30,8 @@ public:
 
 	void BFS();							// breadth first search
 	void DFS();							// depth first search
-	void BFS(int vexID);				// breadth first search
-	void DFS(int vexID);				// depth first search
+	virtual bool BFS(int vexID);		// breadth first search
+	virtual bool DFS(int vexID);		// depth first search
 	vector<int> pathTo(int vexID);		// return path to the vex
 
 	virtual vector<int> adj(int vexID);	// return the vertexes next to the vex
@@ -45,6 +45,8 @@ public:
 
 private:
 	bool addEdge(int firstVex, int secondVex);
+
+public:
 	VNode_BD vexNode_BD[MAXNUM];				// vertexes
 
 	// just for test

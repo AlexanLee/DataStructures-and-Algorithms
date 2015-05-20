@@ -38,5 +38,8 @@
     <ClCompile Include="BFS_n_DFS_UT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Hungarian_UT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

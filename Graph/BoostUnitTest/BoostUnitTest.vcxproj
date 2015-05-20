@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClCompile Include="BFS_n_DFS_UT.cpp" />
     <ClCompile Include="Dijkstra_UT.cpp" />
+    <ClCompile Include="Hungarian_UT.cpp" />
     <ClCompile Include="Prim_n_Kruskal_UT.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -187,7 +188,7 @@
       <UseFullPaths Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</UseFullPaths>
     </ClCompile>
     <Link>
-      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Prim_n_Kruskal.obj;BFS_n_DFS.obj;Dijkstra.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Prim_n_Kruskal.obj;BFS_n_DFS.obj;Dijkstra.obj;Hungarian.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 </Project>

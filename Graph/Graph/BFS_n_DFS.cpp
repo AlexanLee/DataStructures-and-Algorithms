@@ -105,7 +105,7 @@ void Graph_BD::BFS()
 	BFS(vexNode_BD[0].id);
 }
 
-void Graph_BD::BFS(int vexID)
+bool Graph_BD::BFS(int vexID)
 {
 	assert(vexID >= 0 && vexID < MAXNUM);
 	Queue<VNode_BD, MAXNUM> queue;
@@ -133,6 +133,7 @@ void Graph_BD::BFS(int vexID)
 			}
 		}
 	}
+	return true;
 }
 
 void Graph_BD::DFS()
@@ -144,7 +145,7 @@ void Graph_BD::DFS()
 	DFS(vexNode_BD[0].id);
 }
 
-void Graph_BD::DFS(int vexID)
+bool Graph_BD::DFS(int vexID)
 {
 	assert(vexID >= 0 && vexID < MAXNUM);
 	vexNode_BD[vexID].isVisited = true;
@@ -165,6 +166,7 @@ void Graph_BD::DFS(int vexID)
 			DFS(adjVex);
 		}
 	}
+	return true;
 }
 
 vector<int> Graph_BD::pathTo(int vexID)
