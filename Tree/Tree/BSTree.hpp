@@ -273,102 +273,38 @@ bool BSTree<T>::delNode(T k)
 		// 删除的节点有两个子树
 		else
 		{
-			// 取出待删节点的父节点
-			NodePointer parentPtr = delNodePtr->parent;
-
-			// 取出待删节点的左右节点
-			NodePointer delNodeLeftPtr = delNodePtr->left, delNodeRightPtr = NULL;
-
-			// 替代节点从待删节点的右子树中搜索
-			NodePointer replaceNode = delNodePtr->right;
-			NodePointer replaceNodeParentPtr = NULL;
-
-			// 找出待删节点的右子树的最左的节点
-			while (replaceNode->left != NULL)
-			{
-				replaceNode = replaceNode->left;
-			}
-
-			// 取出替代节点的父节点
-			replaceNodeParentPtr = replaceNode->parent;
-
-			// 将原待删节点的左节点  的父节点  改为指向  替代节点
-			delNodeLeftPtr->parent = replaceNode;
-
-
-			// 给替换节点的左右赋子树 =================================================== 开始
-
-			// 先赋左子树 ------------------------------------------------------
-			replaceNode->left = delNodePtr->left;
-
-			// 再赋右子树 ------------------------------------------------------
-
-			// 如果发现被删节点右子树是一右斜树（任一节点都没有左子树，因此被替代节点就是待删节点的右节点）
-			if (delNodePtr->right == replaceNode)	
-			{
-				// 如果被删节点的右斜树刚好只有一个节点
-				if ((delNodePtr->right)->right == NULL)
-				{
-					replaceNode->right = NULL;
-					// 使待删节点的右节点指向为空
-					delNodeRightPtr = NULL;
-				}
-				// 如果不止一个节点
-				else
-				{
-					replaceNode->right = (delNodePtr->right)->right;
-					// 使待删节点的右右节点的父节点为替代节点
-					NodePointer rightRightPtr = NULL;
-					rightRightPtr = (delNodePtr->right)->right;
-					rightRightPtr->parent = replaceNode;
-				}
-			}
-			// 如果被删节点的右子树并不是一个右斜树，则该右子树必然存在一个最左的左节点。
+			NodePointer successor = getSuccessor(delNodePtr->data);
+			if (successor == delNodePtr->right)
+				delNodePtr->right = nullptr;
 			else
-			{
-				replaceNode->right = delNodePtr->right;
+				(successor->parent)->left = nullptr;
 
-				// 将替代节点的父节点左指向为空（注意：替代节点已经是最左的一个节点）
-				replaceNodeParentPtr->left = NULL;
-
-				// 将待删节点的原右节点的父节点指向新的替代节点
-				delNodeRightPtr = delNodePtr->right;
-				delNodeRightPtr->parent = replaceNode;
-				
-			}
-
-			// 给替换节点的左右赋子树 =================================================== 结束
-
-
-			// 判断待删节点是否是根节点 ================================================= 开始
-			// 如果待删节点是根节点
-			if (parentPtr == NULL)
-			{
-				replaceNode->parent = NULL;
-				root = replaceNode;
-			}
-			// 如果不是
-			else
-			{
-				// 如果待删节点是左节点
-				if (parentPtr->left == delNodePtr)
-				{
-					parentPtr->left = replaceNode;
-				}
-				// 如果待删节点是右节点
-				else
-				{
-					parentPtr->right = replaceNode;
-				}
-				replaceNode->parent = parentPtr;
-			}
+			successor->right = delNodePtr->right;
+			successor->left = delNodePtr->left;
+			(delNodePtr->left)->parent = successor;
+			if (delNodePtr->right != nullptr)
+				(delNodePtr->right)->parent = successor;
 			
-			// 判断待删节点是否是根节点 ================================================= 结束
+			// 如果待删节点是根节点
+			if (delNodePtr == root)
+			{
+				successor->parent = nullptr;
+				root = successor;
+			}
+			else
+			{
+				NodePointer parentPtr = delNodePtr->parent;
+				// 判断待删节点是其父节点的左节点还是右节点
+				if (delNodePtr == parentPtr->left)
+					parentPtr->left = successor;
 
+				else
+					parentPtr->right = successor;
+				successor->parent = parentPtr;
+			}
 			// 释放待删节点内存
 			delete delNodePtr;
 			delNodePtr = NULL;
-
 		}
 	}
 
@@ -597,7 +533,6 @@ void BSTree<T>::destroy(NodePointer tree)
 		destroy(leftPtr);
 		destroy(rightPtr);
 	}
-
 }
 
 // 模板友元函数
